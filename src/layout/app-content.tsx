@@ -1,3 +1,5 @@
+import {useEffect} from "react";
+
 type AppContentProps = React.ComponentProps<'main'>
 export default function AppContent({children }: AppContentProps) {
     {

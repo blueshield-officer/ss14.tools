@@ -3,6 +3,8 @@ import Database from "@/pages/database.tsx"
 
 import ChemIcon from "@img/gameItems/jobs/chemist.png"
 import EngiIcon from "@img/gameItems/jobs/engineer.png"
+import ERTLeaderIcon from "@img/gameItems/jobs/ERTLeader.png"
+import Strategies from "@/pages/strategies.tsx";
 
 export interface PageConfigProps {
     name: string;
@@ -31,6 +33,13 @@ export const PagesConfig: PageConfigProps[] = [
         slug: "/maps",
         icon: EngiIcon,
         element: <Home />,
+        navigator: true
+    },
+    {
+        name: "Strategies",
+        slug: "/strategies",
+        icon: ERTLeaderIcon,
+        element: <Strategies />,
         navigator: true
     },
 

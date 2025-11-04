@@ -4,8 +4,7 @@ import { Link } from "react-router";
 import {PagesConfig} from "@/config/pages.tsx";
 import {
     DropdownMenuGroup,
-    DropdownMenuItem,
-    DropdownMenuSeparator,
+    DropdownMenuItem
 } from "@radix-ui/react-dropdown-menu";
 import Repository from "@/components/repository.tsx";
 import {useEffect, useState} from "react";
@@ -16,9 +15,10 @@ import {GetChosenRepository, SetChosenRepository} from "@/hooks/use-user-reposit
 import {Database, Search} from "lucide-react";
 import { Input} from "@headlessui/react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/libraries/tooltip';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/libraries/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger, DropdownMenuSeparator } from '@/components/libraries/dropdown-menu';
 import { Button } from "@/components/button";
 import {getUriLastSegment} from "@/logic/utils.ts";
+import ButtonV2 from "@/components/buttonV2.tsx";
 
 export default function AppHeader ()
 {
@@ -60,26 +60,29 @@ export default function AppHeader ()
                 {PagesConfig.map(page => {
                     if (page.navigator) {
                         return (
-                            <div className={"h-full items-center flex relative"}>
-                                <Link
-                                    className={"" +
-                                        "h-9 cursor-pointer px-3 flex items-center"}
-                                    to={{
-                                        pathname: page.slug
-                                    }}
-                                >
-                                    {page.icon && <img src={page.icon} className="mr-2 h-4 w-4"  style={{imageRendering: "pixelated"}} />}
-                                    {page.name}
-                                </Link>
-                                {getUriLastSegment(location.toString()) === page.slug.replace("/", '') && (
-                                    <div
-                                        className={"absolute h-0.5 w-full bottom-0"}
-                                        style={{
-                                            backgroundColor: "white",
+
+                                <div className={"h-full items-center flex relative"}>
+                                    <ButtonV2>
+                                    <Link
+                                        className={"" +
+                                            "h-9 cursor-pointer px-3 flex items-center"}
+                                        to={{
+                                            pathname: page.slug
                                         }}
-                                    />
-                                )}
-                            </div>
+                                    >
+                                        {page.icon && <img src={page.icon} className="mr-2 h-4 w-4"  style={{imageRendering: "pixelated"}} />}
+                                        <span className={"font-semibold"}>{page.name}</span>
+                                    </Link>
+                                    </ButtonV2>
+                                    {getUriLastSegment(location.toString()) === page.slug.replace("/", '') && (
+                                        <div
+                                            className={"absolute h-0.5 w-full bottom-0"}
+                                            style={{
+                                                backgroundColor: "white",
+                                            }}
+                                        />
+                                    )}
+                                </div>
                         )
                     }
                 })}
@@ -88,7 +91,7 @@ export default function AppHeader ()
             { /* additional buttons */ }
             <div className={"h-16 items-center grow-0 shrink-0  flex"}>
                 <TooltipProvider key={Math.random()} delayDuration={0}>
-                    <Tooltip>
+                    <Tooltip data-state="open">
                         <TooltipTrigger>
                             <Link
                                 to={"/database"}
@@ -97,7 +100,7 @@ export default function AppHeader ()
                                 <Database />
                             </Link>
                         </TooltipTrigger>
-                        <TooltipContent>
+                        <TooltipContent className={"transition-all"}>
                             <p>Database</p>
                         </TooltipContent>
                     </Tooltip>
@@ -151,18 +154,18 @@ export default function AppHeader ()
                             />
                         </div>
                         <DropdownMenuSeparator />
-                        <DropdownMenuGroup  data-state="open">
+                        <DropdownMenuGroup  className="overflow-y-auto" data-state="open">
                             {
-                                Object.keys(repositories).length === 0 ? (
-                                    <p className={"accent-secondary"}>
-                                        Nothing was found.
-                                    </p>
+                                Object.keys(filteredRepositories).length === 0 ? (
+                                        <p className={"accent-secondary p-2"}>
+                                            Nothing was found.
+                                        </p>
                                 ) : (
                                     Object.keys(filteredRepositories).map((repositoryId) => {
                                         const repository: RepositoryInterface = repositories[Number(repositoryId)]
                                         return (
                                             <DropdownMenuItem tabIndex={-1} onClick={ () => SetChosenRepository(repository.id) }>
-                                                <Button className={"w-full p-2"}  variant="ghost" onClick={() => {
+                                                <Button className={"w-full p-3"}  variant="ghost" onClick={() => {
                                                     if (chosenRepository !== repository.id) {
                                                         SetChosenRepository(repository.id)
                                                     }
