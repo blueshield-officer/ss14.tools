@@ -1,6 +1,6 @@
 export default function Hr ()
 {
     return (
-        <hr></hr>
+        <hr className="w-full border rounded-xl" />
     )
 }

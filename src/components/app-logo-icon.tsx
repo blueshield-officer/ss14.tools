@@ -1,4 +1,4 @@
-import logo from '/public/favicon.png';
+import logo from '/favicon.png';
 
 export default function AppLogoIcon({ className }: { className?: string }) {
     return (

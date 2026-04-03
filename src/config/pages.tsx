@@ -5,6 +5,9 @@ import ChemIcon from "@img/gameItems/jobs/chemist.png"
 import EngiIcon from "@img/gameItems/jobs/engineer.png"
 import ERTLeaderIcon from "@img/gameItems/jobs/ERTLeader.png"
 import Strategies from "@/pages/strategies.tsx";
+import Chemistry from "@/pages/chemistry.tsx";
+import {Maps} from "@/pages/maps.tsx";
+import React from "react";
 
 export interface PageConfigProps {
     name: string;
@@ -25,14 +28,14 @@ export const PagesConfig: PageConfigProps[] = [
         name: "Chemistry",
         slug: "/chemistry",
         icon: ChemIcon,
-        element: <Home />,
+        element: <Chemistry />,
         navigator: true
     },
     {
         name: "Maps",
         slug: "/maps",
         icon: EngiIcon,
-        element: <Home />,
+        element: <Maps />,
         navigator: true
     },
     {

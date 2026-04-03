@@ -1,12 +1,29 @@
-import type {ReactNode} from "react";
+import React, { type ReactNode, type HTMLAttributes } from "react";
 
-export default function ButtonV2 ({children}: {children: ReactNode})
-{
+interface ButtonV2Props extends HTMLAttributes<HTMLDivElement> {
+    children: ReactNode;
+    className?: string;
+    active?: boolean;
+    ref?: React.Ref<HTMLDivElement>;
+}
+
+export default function ButtonV2({
+                                     children,
+                                     className = "",
+                                     active = false,
+                                     ref,
+                                     ...props
+                                 }: ButtonV2Props) {
     return (
-        <div className={
-            "hover:bg-muted transition-colors rounded-lg shadow-md "
-        }>
+        <div
+            ref={ref}
+            className={`${active ? "bg-muted" : "hover:bg-muted"} rounded-md shadow-md ${className}  cursor-pointer`}
+            style={{
+                backdropFilter: "blur(13px) saturate(180%)",
+            }}
+            {...props}
+        >
             {children}
         </div>
-    )
+    );
 }

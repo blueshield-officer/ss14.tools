@@ -1,27 +1,25 @@
-import {useTheme} from "@/hooks/use-theme.tsx";
-
+import React from "react";
 
 interface TransparentCardProps {
+    blur?: number;
     className?: string;
     children?: React.ReactNode
 }
-export default function TransparentCard ({className, children}: TransparentCardProps) {
-    const {getTheme} = useTheme();
-    const backgroundColor =
-        getTheme() === "light"
-            ? "rgba(189,189,189,0.6)"
-            : getTheme() === "dark"
-                ? "rgba(17, 25, 40, 0.60)"
-                : "";
-
+export default function TransparentCard (
+    {
+        blur = 13,
+        className,
+        children,
+        ...props}: TransparentCardProps) {
 
     return (
-        <div style={{
+        <div
+            {...props}
+            style={{
             transition: "0.3s ease-in-out",
-            backdropFilter: "blur(13px) saturate(180%)",
-            backgroundColor: backgroundColor,
+            backdropFilter: `blur(${blur}px) saturate(180%)`,
         }}
-             className={className}
+             className={`bg-card ${className}`}
         >
             {children}
         </div>

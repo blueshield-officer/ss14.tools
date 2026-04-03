@@ -1,4 +1,4 @@
-The main data which is stored in local storage is:
+The router data which is stored in local storage is:
 <br>
 ___
 `chosen_repository` -- user chosen repo build
